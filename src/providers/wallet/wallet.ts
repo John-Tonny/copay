@@ -1389,6 +1389,105 @@ export class WalletProvider {
     });
   }
 
+  // john
+  public getMasternodePing(wallet, txid, vout): Promise<any> {
+    return new Promise((resolve, reject) => {
+      wallet.getMasternodePing(
+          {
+            txid,
+            vout
+          },
+          (err, res) => {
+            if (err) return reject(err);
+            else {
+              this.logger.debug('get masternode ping');
+              return resolve(res);
+            }
+          }
+      );
+    });
+  }
+
+  public getMasternodeCollateral(wallet): Promise<any> {
+    return new Promise((resolve, reject) => {
+      wallet.getMasternodeCollateral(
+          {
+          },
+          (err, utxos) => {
+            if (err) return reject(err);
+            else {
+              this.logger.debug('get masternode collateral');
+              return resolve(utxos);
+            }
+          }
+      );
+    });
+  }
+
+  public getMasternodes(wallet): Promise<any> {
+    return new Promise((resolve, reject) => {
+      wallet.getMasternodes(
+          {
+          },
+          (err, masternode) => {
+            if (err) return reject(err);
+            else {
+              this.logger.debug('get masternode');
+              return resolve(masternode);
+            }
+          }
+      );
+    });
+  }
+
+  public signMasternode(wallet, opts): Promise<any> {
+    return new Promise((resolve, reject) => {
+      wallet.signMasternode(
+          opts,
+          (err, res) => {
+            if (err) return reject(err);
+            else {
+              this.logger.debug('sign masternode');
+              return resolve(res);
+            }
+          }
+      );
+    });
+  }
+
+  public broadcastMasternode(wallet, rawTx, masternodeKey): Promise<any> {
+    return new Promise((resolve, reject) => {
+      wallet.broadcastMasternode(
+          {
+            rawTx,
+            masternodeKey
+          },
+          (err, res) => {
+            if (err) return reject(err);
+            else {
+              this.logger.debug('broadcast masternode');
+              return resolve(res);
+            }
+          }
+      );
+    });
+  }
+
+  public removeMasternode(wallet, opts): Promise<any> {
+    return new Promise((resolve, reject) => {
+      wallet.removeMasternodes(
+          opts,
+          (err, res) => {
+            if (err) return reject(err);
+            else {
+              this.logger.debug('remove masternode');
+              return resolve(res);
+            }
+          }
+      );
+    });
+  }
+
   public clearTxHistory(wallet): void {
     this.invalidateCache(wallet);
     this.persistenceProvider.removeTxHistory(wallet.id);
@@ -1838,4 +1937,6 @@ export class WalletProvider {
       });
     });
   }
+
 }
+

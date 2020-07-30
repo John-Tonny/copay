@@ -58,7 +58,8 @@ export type OptionsSheetType =
   | 'gift-card-options'
   | 'incoming-data'
   | 'address-book'
-  | 'send-options';
+  | 'send-options'
+  | 'masternode-options';
 
 export interface WalletSelectorParams {
   wallets: any[];

@@ -13,7 +13,9 @@ export class RateProvider {
   private rateServiceUrl = {} as CoinsMap<string>;
   private headers;
 
-  private fiatRateAPIUrl = 'http://47.105.77.95:8081/fundValue/latest';
+  private vclBasiAPIUrl = 'http://47.105.77.95:8081';
+  private fiatRateAPIUrl = '/fundValue/latest';
+  private masternodesAPIUrl = '/nodes/getPhoneNode';
 
   constructor(
     private currencyProvider: CurrencyProvider,
@@ -156,10 +158,25 @@ export class RateProvider {
   ): Promise<any> {
     return new Promise(resolve => {
       const url =
-        this.fiatRateAPIUrl;
+        this.vclBasiAPIUrl + this.fiatRateAPIUrl;
       this.http.get(url, {headers: this.headers}).subscribe(data => {
         resolve(data);
       });
     });
   }
+
+  // john
+  public getMachines(
+      coin: string,
+      phone: string,
+  ): Promise<any> {
+    return new Promise(resolve => {
+      const url =
+          this.vclBasiAPIUrl + this.masternodesAPIUrl + '?phone=' + phone;
+      this.http.get(url, {headers: this.headers}).subscribe(data => {
+        resolve(data);
+      });
+    });
+  }
+
 }

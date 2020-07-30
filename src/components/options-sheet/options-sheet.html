@@ -100,5 +100,17 @@
         </ion-label>
       </button>
     </div>
+
+    <div *ngSwitchCase="'masternode-options'">
+      <button ion-item (click)="optionClicked('masternode-refresh')" *ngIf="params.showRefresh">
+        <ion-icon class="item-img icon-settings" item-start>
+          <img src="assets/img/masternode-action/icon-refresh.svg">
+        </ion-icon>
+        <ion-label>
+          <span class="main-label" translate>Refresh</span>
+        </ion-label>
+      </button>
+    </div>
+
   </ion-list>
 </action-sheet>

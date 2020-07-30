@@ -32,6 +32,7 @@ import { WalletProvider } from '../../providers/wallet/wallet';
 
 // pages
 import { BackupKeyPage } from '../../pages/backup/backup-key/backup-key';
+import { MasternodePage } from '../../pages/masternode/masternode';
 import { SendPage } from '../../pages/send/send';
 import { WalletAddressesPage } from '../../pages/settings/wallet-settings/wallet-settings-advanced/wallet-addresses/wallet-addresses';
 import { TxDetailsModal } from '../../pages/tx-details/tx-details';
@@ -630,6 +631,12 @@ export class WalletDetailsPage {
 
   public goToSendPage() {
     this.navCtrl.push(SendPage, {
+      wallet: this.wallet
+    });
+  }
+
+  public goToMasternodePage() {
+    this.navCtrl.push(MasternodePage, {
       wallet: this.wallet
     });
   }

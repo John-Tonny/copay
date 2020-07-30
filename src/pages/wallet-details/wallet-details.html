@@ -138,6 +138,9 @@
           <button class="button-standard disable-hover" (click)="goToSendPage()" ion-button>
             {{ 'Send' | translate }}
           </button>
+          <button class="button-standard disable-hover" (click)="goToMasternodePage()" *ngIf="wallet?.credentials.m == 1" ion-button>
+            {{ 'Masternode' | translate }}
+          </button>
         </div>
       </expandable-header-footer>
     </expandable-header>

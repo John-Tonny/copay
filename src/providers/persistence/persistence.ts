@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { File } from '@ionic-native/file';
+import {createDecipher} from "crypto";
 import * as _ from 'lodash';
 import { Logger } from '../../providers/logger/logger';
 
@@ -130,8 +131,18 @@ export class PersistenceProvider {
     return new Promise(resolve => {
       this.storage.get(Keys.PROFILE).then(profile => {
         // john
-        // profile = undefined;
-        resolve(profile);
+        let new_credentials = [];
+        for(let i=0;i<profile.credentials.length;i++){
+          if (profile.credentials[i].coin === 'vcl') {
+            new_credentials.push(profile.credentials[i]);
+          }
+        }
+        if (new_credentials.length > 0) {
+          profile.credentials = new_credentials;
+          this.storeProfile(profile);
+          resolve(profile);
+        }
+        resolve(undefined);
       });
     });
   }

@@ -1,0 +1,242 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>masternode info</ion-title>
+    <ion-buttons right>
+      <button class="close-container disable-hover" (click)="removeMasternode()" ion-button>
+        <ion-icon name="trash-outline">删除</ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list *ngIf="txId" class="bp-list">
+    <ion-item>
+      <ion-icon ios="md-close" md="md-close" slot="start"></ion-icon>
+      <ion-label>
+        {{status}}
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="sub-title">
+      <ion-label>
+        <div class="main-label" translate>DETAILS</div>
+      </ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="txId">
+      <ion-label>
+        <div class="summary-item">
+          <span translate>Transaction ID</span>
+        </div>
+      </ion-label>
+      <ion-note item-end copy-to-clipboard="{{ txId }}">
+          <span class="note-container ellipsis summary-item-detail">
+            <time>{{ txId }}</time>
+          </span>
+      </ion-note>
+    </ion-item>
+
+    <ion-item *ngIf="payee">
+      <ion-label>
+        <div class="summary-item">
+          <span translate>Payee</span>
+        </div>
+      </ion-label>
+      <ion-note item-end copy-to-clipboard="{{ payee }}">
+          <span class="note-container ellipsis summary-item-detail">
+            <time>{{ payee }}</time>
+          </span>
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <div class="summary-item">
+          <span translate>Address</span>
+        </div>
+      </ion-label>
+      <ion-note item-end copy-to-clipboard="{{ address }}" *ngIf="bActivate">
+          <span class="note-container ellipsis summary-item-detail">
+            <time>{{ address }}</time>
+          </span>
+      </ion-note>
+      <ion-select *ngIf="!bActivate && machines[0]" name="ip" placeholder="select your address" (ionChange)="getMachines($event)" >
+        <ion-option *ngFor="let machine of machines" [value]="machine">{{machine.ip}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <div class="summary-item">
+          <span translate>Masternode Private Key</span>
+        </div>
+      </ion-label>
+      <ion-note item-end copy-to-clipboard="{{ masternodeKey }}">
+          <span class="note-container ellipsis summary-item-detail">
+            <time>{{ masternodeKey }}</time>
+          </span>
+      </ion-note>
+    </ion-item>
+
+    <ion-item *ngIf="activeseconds">
+      <ion-label>
+        <div class="summary-item">
+          <span translate>Active Seconds</span>
+        </div>
+      </ion-label>
+      <ion-note item-end>
+          <span class="note-container ellipsis summary-item-detail">
+            <time>{{ activeseconds }}</time>
+          </span>
+      </ion-note>
+    </ion-item>
+
+    <ion-item *ngIf="lastseen">
+      <ion-label>
+        <div class="summary-item">
+          <span translate>Last Seen</span>
+        </div>
+      </ion-label>
+      <ion-note item-end>
+          <span class="note-container ellipsis summary-item-detail">
+            <time>{{ (lastseen) * 1000 | amDateFormat:'YYYY/MM/DD hh:mm a'}}</time>
+          </span>
+      </ion-note>
+    </ion-item>
+
+    <div class="line-divider"></div>
+
+  </ion-list>
+
+  <div footer-content>
+    <page-slide-to-accept #slideButton *ngIf="isCordova" [ngClass]="{'slide-confirm-fast slide-confirm-down': hideSlideButton, 'slide-confirm-slow': !hideSlideButton}" [disabled]="!canActivate()" [buttonText]="buttonText" (slideDone)="activate()">
+    </page-slide-to-accept>
+    <ion-toolbar *ngIf="!isCordova">
+      <button ion-button full class="button-footer" (click)="activate()" [disabled]="!canActivate()">{{buttonText}}</button>
+    </ion-toolbar>
+  </div>
+
+</ion-content>
+
+<!--wide-header-page title="{{title | translate}}" hideBackButton="true">
+  <ion-buttons left>
+    <button class="close-container disable-hover" (click)="close()" ion-button>
+      <ion-icon ios="md-close" md="md-close"></ion-icon>
+    </button>
+  </ion-buttons>
+  <ion-buttons right>
+    <button class="close-container disable-hover" (click)="remove()" ion-button>
+      <ion-icon name="trash-outline"></ion-icon>
+    </button>
+  </ion-buttons>
+  <div page-content>
+    <ion-list *ngIf="txId" class="bp-list">
+      <ion-item>
+        <ion-icon ios="md-close" md="md-close" slot="start"></ion-icon>
+        <ion-label>
+          {{status}}
+        </ion-label>
+      </ion-item>
+
+      <ion-item class="sub-title">
+        <ion-label>
+          <div class="main-label" translate>DETAILS</div>
+        </ion-label>
+      </ion-item>
+
+      <ion-item *ngIf="txId">
+        <ion-label>
+          <div class="summary-item">
+            <span translate>Transaction ID</span>
+          </div>
+        </ion-label>
+        <ion-note item-end copy-to-clipboard="{{ txId }}">
+          <span class="note-container ellipsis summary-item-detail">
+            <time>{{ txId }}</time>
+          </span>
+        </ion-note>
+      </ion-item>
+
+      <ion-item *ngIf="payee">
+        <ion-label>
+          <div class="summary-item">
+            <span translate>Payee</span>
+          </div>
+        </ion-label>
+        <ion-note item-end copy-to-clipboard="{{ payee }}">
+          <span class="note-container ellipsis summary-item-detail">
+            <time>{{ payee }}</time>
+          </span>
+        </ion-note>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          <div class="summary-item">
+            <span translate>Address</span>
+          </div>
+        </ion-label>
+        <ion-note item-end copy-to-clipboard="{{ address }}" *ngIf="bActivate">
+          <span class="note-container ellipsis summary-item-detail">
+            <time>{{ address }}</time>
+          </span>
+        </ion-note>
+        <ion-select *ngIf="!bActivate && machines[0]" name="ip" placeholder="select your address" (ionChange)="getMachines($event)" >
+          <ion-option *ngFor="let machine of machines" [value]="machine">{{machine.ip}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          <div class="summary-item">
+            <span translate>Masternode Private Key</span>
+          </div>
+        </ion-label>
+        <ion-note item-end copy-to-clipboard="{{ masternodeKey }}">
+          <span class="note-container ellipsis summary-item-detail">
+            <time>{{ masternodeKey }}</time>
+          </span>
+        </ion-note>
+      </ion-item>
+
+      <ion-item *ngIf="activeseconds">
+        <ion-label>
+          <div class="summary-item">
+            <span translate>Active Seconds</span>
+          </div>
+        </ion-label>
+        <ion-note item-end>
+          <span class="note-container ellipsis summary-item-detail">
+            <time>{{ activeseconds }}</time>
+          </span>
+        </ion-note>
+      </ion-item>
+
+      <ion-item *ngIf="lastseen">
+        <ion-label>
+          <div class="summary-item">
+            <span translate>Last Seen</span>
+          </div>
+        </ion-label>
+        <ion-note item-end>
+          <span class="note-container ellipsis summary-item-detail">
+            <time>{{ (lastseen) * 1000 | amDateFormat:'YYYY/MM/DD hh:mm a'}}</time>
+          </span>
+        </ion-note>
+      </ion-item>
+
+      <div class="line-divider"></div>
+
+    </ion-list>
+
+    <div footer-content>
+      <page-slide-to-accept #slideButton *ngIf="isCordova" [ngClass]="{'slide-confirm-fast slide-confirm-down': hideSlideButton, 'slide-confirm-slow': !hideSlideButton}" [disabled]="!canActivate()" [buttonText]="buttonText" (slideDone)="activate()">
+      </page-slide-to-accept>
+      <ion-toolbar *ngIf="!isCordova">
+        <button ion-button full class="button-footer" (click)="activate()" [disabled]="!canActivate()">{{buttonText}}</button>
+      </ion-toolbar>
+    </div>
+
+  </div>
+</wide-header-page-->

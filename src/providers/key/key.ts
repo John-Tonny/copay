@@ -279,6 +279,18 @@ export class KeyProvider {
     return key.sign(rootPath, txp, password);
   }
 
+  // john
+  public getPrivateKey(keyId: string, rootPath: string, cpath: string) {
+    if (!keyId) {
+      this.logger.warn("Can't sign. No key provided");
+      return;
+    }
+
+    const key = this.getKey(keyId);
+
+    return key.getPrivateKey('', rootPath, cpath);
+  }
+
   public isMatch(key1, key2) {
     // return this.Key.match(key1, key2); TODO needs to be fixed on bwc
     if (key1.fingerPrint && key2.fingerPrint)

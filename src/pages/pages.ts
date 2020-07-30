@@ -10,6 +10,8 @@ import { BackupGamePage } from '../pages/backup/backup-game/backup-game';
 import { BackupKeyPage } from '../pages/backup/backup-key/backup-key';
 import { SendFeedbackPage } from '../pages/feedback/send-feedback/send-feedback';
 import { FinishModalPage } from '../pages/finish/finish';
+import { MasternodeDeletePage } from '../pages/masternode-details/masternode-delete/masternode-delete';
+import { MasternodeDetailsPage } from '../pages/masternode-details/masternode-details';
 import { CollectEmailPage } from '../pages/onboarding/collect-email/collect-email';
 import { DisclaimerPage } from '../pages/onboarding/disclaimer/disclaimer';
 import { OnboardingPage } from '../pages/onboarding/onboarding';
@@ -21,6 +23,7 @@ import { TxpDetailsPage } from '../pages/txp-details/txp-details';
 import { SearchTxModalPage } from '../pages/wallet-details/search-tx-modal/search-tx-modal';
 import { WalletBalanceModal } from '../pages/wallet-details/wallet-balance/wallet-balance';
 import { WalletDetailsPage } from '../pages/wallet-details/wallet-details';
+
 
 // Integrations: Invoice
 import { SelectInvoicePage } from '../pages/integrations/invoice/select-invoice/select-invoice';
@@ -69,6 +72,7 @@ import { TxpPage } from '../pages/includes/txp/txp';
 /* Tabs */
 import { CardsPage } from '../pages/cards/cards';
 import { HomePage } from '../pages/home/home';
+import { MasternodePage } from '../pages/masternode/masternode';
 import { ScanPage } from '../pages/scan/scan';
 import { SendPage } from '../pages/send/send';
 import { SettingsPage } from '../pages/settings/settings';
@@ -184,6 +188,10 @@ export const PAGES = [
   WalletsPage,
   LanguagePage,
   LockPage,
+  // john
+  MasternodePage,
+  MasternodeDetailsPage,
+  MasternodeDeletePage,
   MerchantPage,
   MultipleOutputsPage,
   OnboardingPage,
