@@ -111,7 +111,7 @@ export class ExchangeRates {
             this.updateValues(i);
           },
           err => {
-            this.logger.error('Error getting current rate:', err);
+            this.logger.error('Error getting current rate yyy:', err);
           }
         );
     });

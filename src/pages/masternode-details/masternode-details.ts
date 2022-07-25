@@ -21,7 +21,6 @@ import {MasternodeDeletePage} from "./masternode-delete/masternode-delete";
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-masternode-details',
   templateUrl: 'masternode-details.html',
@@ -164,7 +163,7 @@ export class MasternodeDetailsPage {
                           let title = this.translate.instant('Could not broadcast masternode');
                           this.showErrorInfoSheet(err, title);
                         }
-                      })
+                      });
                   })
                   .catch(err => {
                     this.onGoingProcessProvider.clear();
@@ -172,8 +171,15 @@ export class MasternodeDetailsPage {
                       let title = this.translate.instant('Could not sign masternode');
                       this.showErrorInfoSheet(err, title);
                     }
-                  })
+                  });
               })
+              .catch(err => {
+                this.onGoingProcessProvider.clear();
+                if (err) {
+                  let title = this.translate.instant('Could not get masternode ping');
+                  this.showErrorInfoSheet(err, title);
+                }
+              });
           })
           .catch(err => {
             this.onGoingProcessProvider.clear();

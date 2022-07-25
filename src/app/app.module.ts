@@ -29,9 +29,15 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
 
 /* Copay App */
 import env from '../environments';
+// import {MasternodeDeletePageModule} from "../pages/masternode-details/masternode-delete/masternode-delete.module";
+// import {MasternodeDetailsPageModule} from "../pages/masternode-details/masternode-details.module";
 import { CopayApp } from './app.component';
 
 import { PAGES } from './../pages/pages';
+
+// import {MasternodeDeletePage} from "../pages/masternode-details/masternode-delete/masternode-delete";
+// import {MasternodeDetailsPage} from "../pages/masternode-details/masternode-details";
+// import {MasternodePageModule} from "../pages/masternode/masternode.module";
 
 /* Pipes */
 import { FiatToUnitPipe } from '../pipes/fiatToUnit';
@@ -122,6 +128,10 @@ export class MyMissingTranslationHandler implements MissingTranslationHandler {
     NgxBarcodeModule,
     NgxQRCodeModule,
     ProvidersModule,
+    // john
+    // MasternodeDeletePageModule,
+    // MasternodeDetailsPageModule,
+    // MasternodePageModule,
     TranslateModule.forRoot({
       parser: { provide: TranslateParser, useFactory: translateParserFactory },
       missingTranslationHandler: {

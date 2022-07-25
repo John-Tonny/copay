@@ -23,7 +23,8 @@ export class RateProvider {
     private logger: Logger
   ) {
     this.logger.debug('RateProvider initialized');
-    this.headers = {"Auth": '9c7f69dcb2c24532da39bca5a290ff47'}
+    this.headers = {"Auth": '9c7f69dcb2c24532da39bca5a290ff47', "Access-Control-Allow-Origin": '*'}
+    this.logger.debug('RateProvider:' , this.headers);
     this.alternatives = {};
     for (const coin of this.currencyProvider.getAvailableCoins()) {
       this.rateServiceUrl[coin] = env.ratesAPI[coin];
@@ -37,6 +38,7 @@ export class RateProvider {
     return new Promise((resolve, reject) => {
       this.getCoin(chain)
         .then(dataCoin => {
+          this.logger.info("dataCoin:" ,dataCoin)
           if( dataCoin.data && dataCoin.data.fundValue){
             this.rates[chain]['CNY'] = dataCoin.data.fundValue;
             this.alternatives['CNY'] = { name: 'CNY' };
@@ -53,6 +55,7 @@ export class RateProvider {
 
   public getCoin(chain: string): Promise<any> {
     return new Promise(resolve => {
+      this.logger.debug('getCoin:' , this.rateServiceUrl[chain]);
       this.http.get(this.rateServiceUrl[chain], {headers: this.headers} ).subscribe(data => {
         resolve(data);
       });
@@ -159,6 +162,7 @@ export class RateProvider {
     return new Promise(resolve => {
       const url =
         this.vclBasiAPIUrl + this.fiatRateAPIUrl;
+      this.logger.debug('getHistoricFiatRate:' , url);
       this.http.get(url, {headers: this.headers}).subscribe(data => {
         resolve(data);
       });
@@ -173,6 +177,7 @@ export class RateProvider {
     return new Promise(resolve => {
       const url =
           this.vclBasiAPIUrl + this.masternodesAPIUrl + '?phone=' + phone;
+      this.logger.debug('getMachines:', url, this.headers);
       this.http.get(url, {headers: this.headers}).subscribe(data => {
         resolve(data);
       });

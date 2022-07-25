@@ -131,6 +131,10 @@ export class PersistenceProvider {
     return new Promise(resolve => {
       this.storage.get(Keys.PROFILE).then(profile => {
         // john
+        if (!profile) {
+          resolve(profile);
+        }
+
         let new_credentials = [];
         for(let i=0;i<profile.credentials.length;i++){
           if (profile.credentials[i].coin === 'vcl') {

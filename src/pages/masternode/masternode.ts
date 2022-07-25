@@ -12,8 +12,6 @@ import {
   ProfileProvider, RateProvider, WalletProvider
 } from "../../providers";
 import {MasternodeDetailsPage} from "../masternode-details/masternode-details";
-import {KeyDeletePage} from "../settings/key-settings/key-delete/key-delete";
-
 
 /**
  * Generated class for the MasternodePage page.
@@ -22,7 +20,6 @@ import {KeyDeletePage} from "../settings/key-settings/key-delete/key-delete";
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-masternode',
   templateUrl: 'masternode.html',
@@ -183,6 +180,8 @@ export class MasternodePage {
       this.machines.push({key: '5JisMpk7vvvRbAhvGb7KcFuuifzuqCZX4XvExnrbQpkuKBk713o', ip: '52.82.14.25'});
       this.machines.push({key: '5KUPXvGKvh9oBHZttH8rnhVEv7RtttVbduoXWphcQi9uBdd7BJ4', ip: '52.82.67.41'});
       this.machines.push({key: '5Js8tYzLdfqCKcT6bZYzMAnfLhvsKs48PzrKX2Pv8fK2D6i4dXu', ip: '47.104.25.28'});
+      this.machines.push({key: '5KGv1unWpomtQDBM8nSdsRctd3A38z9eDRp1mdHo7i3fLbjS3xS', ip: '161.189.98.179'});
+      this.machines.push({key: '5KH1dzQ36tqKn8iKYKSmiPgXrCAYF6aW8gHWoEtbRsN6YY7wcQY', ip: '161.189.99.57'});
       return;
     }
     this.rateProvider

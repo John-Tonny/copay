@@ -376,19 +376,25 @@ export class TxDetailsModal {
         (this.btx.time * 1000).toString()
       )
       .then(fiat => {
-        if (fiat && fiat.rate) {
+        // john
+        if (fiat && fiat.code == 200 && fiat.data && fiat.data.fundValue) {
           this.btx.fiatRateStr =
             this.filter.formatFiatAmount(
-              parseFloat((fiat.rate * this.btx.amountValueStr).toFixed(2))
+              parseFloat((fiat.data.fundValue * this.btx.amountValueStr).toFixed(2))
             ) +
             ' ' +
             settings.alternativeIsoCode +
             ' @ ' +
-            this.filter.formatFiatAmount(fiat.rate) +
+            this.filter.formatFiatAmount(fiat.data.fundValue) +
             ` ${settings.alternativeIsoCode} per ` +
             this.wallet.coin.toUpperCase();
         } else {
           this.btx.fiatRateStr = this.btx.alternativeAmountStr;
+        }
+      })
+      .catch(err => {
+        if (err) {
+          this.logger.warn(err);
         }
       });
   }

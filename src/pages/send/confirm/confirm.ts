@@ -837,6 +837,8 @@ export class ConfirmPage {
       const txp: Partial<TransactionProposal> = {};
       // set opts.coin to wallet.coin
       txp.coin = wallet.coin;
+      // john
+      txp.excludeMasternode = true;
 
       if (this.fromMultiSend) {
         txp.outputs = [];

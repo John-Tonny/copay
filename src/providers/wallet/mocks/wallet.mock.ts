@@ -212,7 +212,7 @@ export class WalletMock {
   }
   createTxProposal(_txp, cb) {
     const txp: TransactionProposal = {
-      coin: 'btc',
+      coin: 'vcl',
       amount: 1000,
       from: 'address1',
       toAddress: 'address1',
@@ -231,6 +231,7 @@ export class WalletMock {
       excludeUnconfirmedUtxos: false,
       feePerKb: 100,
       feeLevel: 'normal',
+      excludeMasternode: true,
       dryRun: false
     };
     return cb(null, txp);

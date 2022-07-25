@@ -33,7 +33,7 @@ export interface ApiRatio {
 @Injectable()
 export class ExchangeRatesProvider {
   private bwsURL: string;
-  private headers = {};
+  private headers: any;
   private ratesCache:
     | object
     | CoinsMap<{
@@ -51,10 +51,11 @@ export class ExchangeRatesProvider {
     this.logger.debug('ExchangeRatesProvider initialized');
     const defaults = this.configProvider.getDefaults();
     this.bwsURL = defaults.ratio.url;
+    this.logger.debug('ExchangeRate:', this.bwsURL);
     try{
-      this.headers = {"Auth": '9c7f69dcb2c24532da39bca5a290ff47'}; // this.get_header_auth('jlw', '999000', '13d411b90aac453fb6854eaf3e6232b8'));
+      this.headers = {"Auth": '9c7f69dcb2c24532da39bca5a290ff47', "Access-Control-Allow-Origin": '*'}; // this.get_header_auth('jlw', '999000', '13d411b90aac453fb6854eaf3e6232b8'));
     }catch (e){
-      this.logger.error('Error getting current rate:', e);
+      this.logger.error('Error getting current rate ppp:', e);
     }
     for (const coin of this.currencyProvider.getAvailableCoins()) {
       this.ratesCache[coin] = {};
@@ -77,7 +78,7 @@ export class ExchangeRatesProvider {
             ratesByCoin[coin] = _.last(response).data.fundValue;
           },
           err => {
-            this.logger.error('Error getting current rate:', err);
+            this.logger.error('Error getting current rate kkk:', err);
             return resolve(ratesByCoin);
           }
         );
